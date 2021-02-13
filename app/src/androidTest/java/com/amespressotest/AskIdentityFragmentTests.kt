@@ -1,6 +1,7 @@
 package com.amespressotest
 
 import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
@@ -30,6 +31,7 @@ class AskIdentityFragmentTests {
 
     @Before
     fun setUpTest() {
+
         navController = TestNavHostController(ApplicationProvider.getApplicationContext())
         UiThreadStatement.runOnUiThread {
             navController.setGraph(R.navigation.nav_graph)
