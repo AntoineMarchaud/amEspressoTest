@@ -1,0 +1,2 @@
+rootProject.name = "SimpleForAutomatedTests"
+include ':app'
