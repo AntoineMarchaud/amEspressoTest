@@ -17,6 +17,7 @@ import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.amespressotest.simple.R
 import com.amespressotest.simple.ui.AskIdentityFragment
 import com.amespressotest.simple.ui.EndFragment
+import com.amespressotest.simple.ui.StartFragment
 import com.google.common.truth.Truth
 import org.junit.Before
 import org.junit.Test
@@ -52,6 +53,24 @@ class EndFragmentTests {
     // Check if name from previous activity is displayed : hello [name]!
     @Test
     fun nameDisplayedTest() {
+
+        // Create a TestNavHostController
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+        UiThreadStatement.runOnUiThread {
+            navController.setGraph(R.navigation.nav_graph)
+        }
+
+        val bundle = bundleOf("name" to NAME)
+        val scenarioEnd = launchFragmentInContainer(fragmentArgs = bundle) {
+            EndFragment().also { fragment ->
+                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        Navigation.setViewNavController(fragment.requireView(), navController)
+                    }
+                }
+            }
+        }
+
         Espresso.onView(ViewMatchers.withId(R.id.helloName))
             .check(matches(withText("Hello $NAME!")))
     }

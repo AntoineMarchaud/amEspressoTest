@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.amespressotest.simple.databinding.FragmentStartBinding
 
 /** The first shown Activity. */
@@ -35,8 +36,9 @@ class StartFragment : Fragment() {
 
     /** Opens the next page */
     private fun gotoNextPage() {
-        val direction = StartFragmentDirections.actionStartFragmentToAskIdentityFragment()
-        Navigation.findNavController(requireView()).navigate(direction)
+        findNavController().navigate(
+            StartFragmentDirections.actionStartFragmentToAskIdentityFragment()
+        )
     }
 
     override fun onDestroy() {

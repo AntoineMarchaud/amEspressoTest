@@ -30,17 +30,19 @@ class AskIdentityFragmentTests {
 
     @Before
     fun setUpTest() {
-        // Create a TestNavHostController
         navController = TestNavHostController(ApplicationProvider.getApplicationContext())
         UiThreadStatement.runOnUiThread {
             navController.setGraph(R.navigation.nav_graph)
         }
 
-        val scenarioAskIdentity = launchFragmentInContainer<AskIdentityFragment>()
-
-        // Set the NavController property on the fragment
-        scenarioAskIdentity.onFragment { fragment ->
-            Navigation.setViewNavController(fragment.requireView(), navController)
+        val scenarioAskIdentity = launchFragmentInContainer {
+            AskIdentityFragment().also { fragment ->
+                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        Navigation.setViewNavController(fragment.requireView(), navController)
+                    }
+                }
+            }
         }
     }
 

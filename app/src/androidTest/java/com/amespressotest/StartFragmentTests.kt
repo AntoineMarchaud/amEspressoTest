@@ -20,27 +20,27 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class StartFragmentTests {
 
-    private lateinit var navController : TestNavHostController
-
-    @Before
-    fun setUpTest() {
-        // Create a TestNavHostController
-        navController = TestNavHostController(ApplicationProvider.getApplicationContext())
-        runOnUiThread {
-            navController.setGraph(R.navigation.nav_graph)
-        }
-
-        val scenarioStart = launchFragmentInContainer<StartFragment>()
-
-        // Set the NavController property on the fragment
-        scenarioStart.onFragment { fragment ->
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-    }
 
     // Check start of AskIdentityActivity after click on Continue button
     @Test
     fun navigationToAskIdentityActivityTest() {
+
+        // Create a TestNavHostController
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+        runOnUiThread {
+            navController.setGraph(R.navigation.nav_graph)
+        }
+
+        val scenarioStart = launchFragmentInContainer {
+            StartFragment().also { fragment ->
+                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        Navigation.setViewNavController(fragment.requireView(), navController)
+                    }
+                }
+            }
+        }
+
         // Verify that performing a click changes the NavController’s state
         Espresso.onView(ViewMatchers.withId(R.id.continueButton)).perform(ViewActions.click())
         assertThat(navController.currentDestination?.id).isEqualTo(R.id.askIdentityFragment)
