@@ -1,51 +1,54 @@
 package com.amespressotest
 
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.navigation.Navigation
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.amespressotest.simple.AskIdentityActivity
-import com.amespressotest.simple.EndActivity
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.amespressotest.simple.R
+import com.amespressotest.simple.ui.AskIdentityFragment
+import com.google.common.truth.Truth.assertThat
 import org.hamcrest.Matchers.not
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
-class AskIdentityActivityTests {
+@RunWith(AndroidJUnit4::class)
+class AskIdentityFragmentTests {
 
     companion object {
-        // Components ID Constants
-        private const val NAME_EDIT_TEXT_ID = R.id.enterNameEditText
-        private const val CONTINUE_BUTTON_ID = R.id.continueButton
-
         private const val NAME = "Antoine"
     }
 
-
-    // IntentsTestRule to check start of a new Activity
-    @get:Rule
-    val intentsTestRule = ActivityScenarioRule(AskIdentityActivity::class.java)
+    private lateinit var navController: TestNavHostController
 
     @Before
-    fun setupTest() {
-        Intents.init()
-    }
+    fun setUpTest() {
+        // Create a TestNavHostController
+        navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+        UiThreadStatement.runOnUiThread {
+            navController.setGraph(R.navigation.nav_graph)
+        }
 
-    @After
-    fun cleanUp() {
-        Intents.release()
+        val scenarioAskIdentity = launchFragmentInContainer<AskIdentityFragment>()
+
+        // Set the NavController property on the fragment
+        scenarioAskIdentity.onFragment { fragment ->
+            Navigation.setViewNavController(fragment.requireView(), navController)
+        }
     }
 
     // Check if name editText is empty and button is not enabled at start
     @Test
     fun emptyNameAtStartTest() {
-        Espresso.onView(ViewMatchers.withId(NAME_EDIT_TEXT_ID)).check(matches(ViewMatchers.withText("")))
+        Espresso.onView(ViewMatchers.withId(R.id.enterNameEditText))
+            .check(matches(ViewMatchers.withText("")))
         checkContinueButtonEnabled(false)
     }
 
@@ -98,17 +101,23 @@ class AskIdentityActivityTests {
     @Test
     fun navigationToEndActivityTest() {
         fillName(NAME)
-        Espresso.onView(ViewMatchers.withId(CONTINUE_BUTTON_ID)).perform(click())
-        Intents.intended(IntentMatchers.hasComponent(EndActivity::class.java.name))
+        Espresso.onView(ViewMatchers.withId(R.id.endButton)).perform(ViewActions.click())
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.endFragment)
     }
 
     // Fill Name edittext with text
     private fun fillName(text: String) {
-        Espresso.onView(ViewMatchers.withId(NAME_EDIT_TEXT_ID)).perform(clearText(), typeText(text), pressImeActionButton())
+        Espresso.onView(ViewMatchers.withId(R.id.enterNameEditText))
+            .perform(
+                ViewActions.clearText(),
+                ViewActions.typeText(text),
+                ViewActions.pressImeActionButton()
+            )
     }
 
     // Check if continue Button is enabled or not
     private fun checkContinueButtonEnabled(enabled: Boolean) {
-        Espresso.onView(ViewMatchers.withId(CONTINUE_BUTTON_ID)).check(matches(if (enabled) isEnabled() else not(isEnabled())))
+        Espresso.onView(ViewMatchers.withId(R.id.endButton))
+            .check(matches(if (enabled) isEnabled() else not(isEnabled())))
     }
 }

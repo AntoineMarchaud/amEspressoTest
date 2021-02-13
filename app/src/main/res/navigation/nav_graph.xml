@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.amespressotest.simple.ui.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_askIdentityFragment"
+            app:destination="@id/askIdentityFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/askIdentityFragment"
+        android:name="com.amespressotest.simple.ui.AskIdentityFragment"
+        android:label="fragment_ask_identity"
+        tools:layout="@layout/fragment_ask_identity" >
+        <action
+            android:id="@+id/action_askIdentityFragment_to_endFragment"
+            app:destination="@id/endFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/endFragment"
+        android:name="com.amespressotest.simple.ui.EndFragment"
+        android:label="fragment_end"
+        tools:layout="@layout/fragment_end" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+</navigation>
