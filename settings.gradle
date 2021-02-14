@@ -1,2 +1,2 @@
-rootProject.name = "amEspressoTest"
+rootProject.name = "amEspressoTestFragments"
 include ':app'

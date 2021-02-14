@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.amespressotest.simple">
+    package="com.amespressotestfragments.simple">
 
     <application
         android:allowBackup="false"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleForAutomatedTests">
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.amespressotestfragments.simple.MainActivity">
             <!-- This is added to handle a deep link -->
             <nav-graph android:value="@navigation/nav_graph" />
             <intent-filter>

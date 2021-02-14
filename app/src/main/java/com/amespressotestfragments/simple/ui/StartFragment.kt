@@ -1,13 +1,12 @@
-package com.amespressotest.simple.ui
+package com.amespressotestfragments.simple.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.amespressotest.simple.databinding.FragmentStartBinding
+import com.amespressotestfragments.simple.databinding.FragmentStartBinding
 
 /** The first shown Activity. */
 class StartFragment : Fragment() {

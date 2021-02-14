@@ -1,11 +1,11 @@
-package com.amespressotest.simple
+package com.amespressotestfragments.simple
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.amespressotest.simple.databinding.ActivityMainBinding
+import com.amespressotestfragments.simple.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

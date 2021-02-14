@@ -1,4 +1,4 @@
-package com.amespressotest
+package com.amespressotestfragments
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.Navigation
@@ -9,10 +9,9 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
-import com.amespressotest.simple.R
-import com.amespressotest.simple.ui.StartFragment
+import com.amespressotestfragments.simple.R
+import com.amespressotestfragments.simple.ui.StartFragment
 import com.google.common.truth.Truth.assertThat
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 

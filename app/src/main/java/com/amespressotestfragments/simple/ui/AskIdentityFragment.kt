@@ -1,4 +1,4 @@
-package com.amespressotest.simple.ui
+package com.amespressotestfragments.simple.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -6,13 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.amespressotest.simple.R
-import com.amespressotest.simple.databinding.FragmentAskIdentityBinding
+import com.amespressotestfragments.simple.databinding.FragmentAskIdentityBinding
 
 /** Asks the name of the user. He cannot proceed if no name is entered. */
 class AskIdentityFragment : Fragment() {

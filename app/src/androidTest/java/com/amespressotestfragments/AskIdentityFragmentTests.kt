@@ -1,7 +1,6 @@
-package com.amespressotest
+package com.amespressotestfragments
 
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
@@ -12,8 +11,8 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
-import com.amespressotest.simple.R
-import com.amespressotest.simple.ui.AskIdentityFragment
+import com.amespressotestfragments.simple.R
+import com.amespressotestfragments.simple.ui.AskIdentityFragment
 import com.google.common.truth.Truth.assertThat
 import org.hamcrest.Matchers.not
 import org.junit.Before

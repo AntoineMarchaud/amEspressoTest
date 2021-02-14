@@ -1,24 +1,18 @@
-package com.amespressotest
+package com.amespressotestfragments
 
 import androidx.core.os.bundleOf
-import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
-import com.amespressotest.simple.R
-import com.amespressotest.simple.ui.AskIdentityFragment
-import com.amespressotest.simple.ui.EndFragment
-import com.amespressotest.simple.ui.StartFragment
-import com.google.common.truth.Truth
+import com.amespressotestfragments.simple.R
+import com.amespressotestfragments.simple.ui.EndFragment
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
