@@ -34,13 +34,14 @@ class AskIdentityFragmentTests {
         navController = TestNavHostController(ApplicationProvider.getApplicationContext())
         UiThreadStatement.runOnUiThread {
             navController.setGraph(R.navigation.nav_graph)
-        }
-
-        val scenarioAskIdentity = launchFragmentInContainer {
-            AskIdentityFragment().also { fragment ->
-                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
-                    if (viewLifecycleOwner != null) {
-                        Navigation.setViewNavController(fragment.requireView(), navController)
+            navController.setCurrentDestination(R.id.askIdentityFragment)
+        }.let {
+            val scenarioAskIdentity = launchFragmentInContainer {
+                AskIdentityFragment().also { fragment ->
+                    fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                        if (viewLifecycleOwner != null) {
+                            Navigation.setViewNavController(fragment.requireView(), navController)
+                        }
                     }
                 }
             }

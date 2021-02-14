@@ -33,14 +33,15 @@ class EndFragmentTests {
         navController = TestNavHostController(ApplicationProvider.getApplicationContext())
         UiThreadStatement.runOnUiThread {
             navController.setGraph(R.navigation.nav_graph)
-        }
+            navController.setCurrentDestination(R.id.endFragment)
+        }.let {
+            val bundle = bundleOf("name" to NAME)
+            val scenario = launchFragmentInContainer<EndFragment>(bundle)
 
-        val bundle = bundleOf("name" to NAME)
-        val scenario = launchFragmentInContainer<EndFragment>(bundle)
-
-        // Set the NavController property on the fragment
-        scenario.onFragment { fragment ->
-            Navigation.setViewNavController(fragment.requireView(), navController)
+            // Set the NavController property on the fragment
+            scenario.onFragment { fragment ->
+                Navigation.setViewNavController(fragment.requireView(), navController)
+            }
         }
     }
 
